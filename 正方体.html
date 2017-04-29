@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        .wrap{
+            width: 200px;
+            height: 200px;
+            margin: 100px ;
+            perspective:2000px/*设置视距 近大远小   距离越小  效果越明显（设置在最外层的盒子）*/
+            /*如果想要在3D空间里面展示，一开始必须要设置2个属性
+            1） perspective:2000px（设置视距 近大远小 设置给在最外层的盒子 值范围800-2000）
+            2）transform-style:preserve-3d  （3D空间里展示   给父级元素设置）
+            */
+        }
+
+        .box{
+            width:100%;
+            height:100%;
+            position: relative;
+            transform-style:preserve-3d ;/*3D空间里展示   给父级元素设置  */
+            animation: move 5s infinite linear both;
+            transform-origin: 100px 100px -100px;
+            /*在2D中，基准点是平面6的中心位置（宽高的一半） 基准点从平面6整体向Z轴向后移动100px*/
+        }
+        .box li{
+            position: absolute;
+            left: 0;
+            top: 0;/*一开始的时候让每条边都堆积在一起*/
+            width: 196px;
+            height: 196px;
+            line-height:196px;
+            border: 2px solid #000;
+            background: rgba(72,252,10,.5);/*背景色 有一定的透明度*/
+            font-size: 60px;
+            text-align: center;
+        }
+        ul li:nth-child(1){
+            top: -200px;/*先向上移动*/
+            transform: rotateX(90deg);/*沿着X轴向前翻转90度*/
+            transform-origin: bottom;/*翻转的基准点  底边的那条线*/
+        }
+        ul li:nth-child(2){
+            top: 200px;/*向下移动*/
+            transform: rotateX(-90deg);/*沿着X轴向后翻转90度*/
+            transform-origin: top;/*翻转的基准点  顶边的那条线*/
+        }
+        ul li:nth-child(3){
+            left: -200px;/*向左移动*/
+            transform: rotateY(-90deg);/*沿着Y轴向里(向左)翻转90度 rotateY正值往右翻  负值往左翻*/
+            transform-origin: right;/*翻转的基准点  右边的那条线*/
+        }
+        ul li:nth-child(4){
+            left: 200px;/*先向右移动*/
+            transform: rotateY(90deg); /*沿着Y轴向右翻转90度 rotateY正值往右翻  负值往左翻*/
+            transform-origin: left;/*翻转的基准点  左边的那条线*/
+        }
+        ul li:nth-child(5){
+            transform: translateZ(-200px);
+            /*和平面6正对着的那个平面 沿着Z轴向里平移200px（正方体的边长），完整的正方体结构搭成*/
+        }
+        ul li:nth-child(6){/*不需要移动,写上Z轴更加严谨*/
+            transform: translateZ(0px);
+            transform: translateX(0px);
+            transform: translateY(0px);
+        }
+        @keyframes move {
+            from{
+                transform: rotateX(0deg)rotateY(0deg);
+            }
+            to{
+                transform: rotateX(360deg)rotateY(360deg);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrap">
+    <ul class="box">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+    </ul>
+</div>
+</body>
+</html>
